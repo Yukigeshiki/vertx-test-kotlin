@@ -54,6 +54,7 @@ class ApiHandler {
         .setStatusCode(
             if (e is HttpResponseException) e.statusCode else HttpResponseStatus.INTERNAL_SERVER_ERROR.code()
         )
+        .putHeader("Content-Type", "application/json")
         .end(
             Json.encode(
                 Fail(requestId, e.message ?: "Unknown error!").also { logger.info(it) }
